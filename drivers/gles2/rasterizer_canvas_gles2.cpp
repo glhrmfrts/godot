@@ -55,6 +55,8 @@ void RasterizerCanvasGLES2::_set_uniforms() {
 	state.canvas_shader.set_uniform(CanvasShaderGLES2::PROJECTION_MATRIX, state.uniforms.projection_matrix);
 	state.canvas_shader.set_uniform(CanvasShaderGLES2::MODELVIEW_MATRIX, state.uniforms.modelview_matrix);
 	state.canvas_shader.set_uniform(CanvasShaderGLES2::EXTRA_MATRIX, state.uniforms.extra_matrix);
+	state.canvas_shader.set_uniform(CanvasShaderGLES2::WORLD_MATRIX, state.uniforms.world_matrix);
+	state.canvas_shader.set_uniform(CanvasShaderGLES2::INV_WORLD_MATRIX, state.uniforms.inv_world_matrix);
 
 	state.canvas_shader.set_uniform(CanvasShaderGLES2::FINAL_MODULATE, state.uniforms.final_modulate);
 
@@ -126,6 +128,9 @@ void RasterizerCanvasGLES2::canvas_begin() {
 		glClear(GL_COLOR_BUFFER_BIT);
 		storage->frame.clear_request = false;
 	}
+
+	state.uniforms.world_matrix = Transform2D();
+	state.uniforms.inv_world_matrix = Transform2D();
 
 	/*
 	if (storage->frame.current_rt) {
@@ -1501,6 +1506,8 @@ void RasterizerCanvasGLES2::canvas_render_items(Item *p_item_list, int p_z, cons
 
 		state.uniforms.modelview_matrix = ci->final_transform;
 		state.uniforms.extra_matrix = Transform2D();
+		state.uniforms.world_matrix = p_base_transform.affine_inverse() * ci->final_transform;
+		state.uniforms.inv_world_matrix = state.uniforms.world_matrix.affine_inverse();
 
 		_set_uniforms();
 

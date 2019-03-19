@@ -197,6 +197,9 @@ ShaderTypes::ShaderTypes() {
 	shader_modes[VS::SHADER_CANVAS_ITEM].functions["vertex"].built_ins["COLOR"] = ShaderLanguage::TYPE_VEC4;
 	shader_modes[VS::SHADER_CANVAS_ITEM].functions["vertex"].built_ins["POINT_SIZE"] = ShaderLanguage::TYPE_FLOAT;
 
+	shader_modes[VS::SHADER_CANVAS_ITEM].functions["vertex"].built_ins["GLOBAL_MATRIX"] = constt(ShaderLanguage::TYPE_MAT4);
+	shader_modes[VS::SHADER_CANVAS_ITEM].functions["vertex"].built_ins["INV_GLOBAL_MATRIX"] = constt(ShaderLanguage::TYPE_MAT4);
+
 	shader_modes[VS::SHADER_CANVAS_ITEM].functions["vertex"].built_ins["WORLD_MATRIX"] = constt(ShaderLanguage::TYPE_MAT4);
 	shader_modes[VS::SHADER_CANVAS_ITEM].functions["vertex"].built_ins["PROJECTION_MATRIX"] = constt(ShaderLanguage::TYPE_MAT4);
 	shader_modes[VS::SHADER_CANVAS_ITEM].functions["vertex"].built_ins["EXTRA_MATRIX"] = constt(ShaderLanguage::TYPE_MAT4);
@@ -251,6 +254,8 @@ ShaderTypes::ShaderTypes() {
 
 	shader_modes[VS::SHADER_CANVAS_ITEM].modes.push_back("unshaded");
 	shader_modes[VS::SHADER_CANVAS_ITEM].modes.push_back("light_only");
+
+	shader_modes[VS::SHADER_CANVAS_ITEM].modes.push_back("world_vertex_coords");
 
 	/************ PARTICLES **************************/
 

@@ -53,6 +53,9 @@ public:
 		Transform2D modelview_matrix;
 		Transform2D extra_matrix;
 
+		Transform2D world_matrix;
+		Transform2D inv_world_matrix;
+
 		Color final_modulate;
 
 		float time;
